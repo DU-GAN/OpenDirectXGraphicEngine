@@ -1,0 +1,1 @@
+texconv -r C:\Textures\*.png
