@@ -3,7 +3,7 @@
 ## Using this engine, you can achieve the following rendering effects 
 ### Example 1: City model rendered with materials
  Use material preview mode to render the city model and compare the rendering results of Blender and OpenDirectX GraphicEngine.
-![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/7c7e32e4-57bd-42a1-b35e-996c500f845e)
+![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/a92b8bf9-cc2d-4050-9b28-52790d5136d2)
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/d560d789-a942-44f7-8207-79b327441707)
 ### Example 2: A mecha model for lighting rendering
 Use lighting mode to render the mecha model in a standing animation, in order to compare the realism of Blender and OpenDirectX GraphicEngine rendering PBR models.
@@ -18,10 +18,10 @@ The use of lighting mode to render machine models in heavily attacked animations
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/8a4fae26-c71a-461c-97ef-c66dee8f43f7)
 ### Example 4: Multi animation file separation model for lighting rendering
 The above models are all in the network universal model format GLTF. We are currently testing an FBX format model with bones, which does not come with animations. I have generated multiple animation files for it on the Mixamo website. After importing the model into ODGE, I tested loading multiple animations onto the model and successfully rendering and playing them.
-![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/cf9d57f6-519c-4130-82f9-984e939cfeff)
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/8b0fc1a0-c05b-4aeb-a380-b03c90649b35)
-![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/28c4913d-7de4-4c2f-b1f0-b4ccf6276e19)
-![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/dad59266-a472-42f8-887c-6b2c1ac12f1d)
-![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/36f417e6-3042-4001-b440-eba08828af04)
-![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/c078abcd-f655-417f-b251-26c8913fbede)
+![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/ba3cc26b-81a9-450a-9fa7-cea7dec79a24)
+![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/0620b760-e57c-4e07-9932-17e31fda3d85)
+![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/f2387c93-eaad-47c1-bd53-851e31c1afec)
+![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/a52b9279-dce7-4d3b-9908-1bb1eb12f9d8)
+![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/04e2a154-9c28-4992-ba69-cbdfe1994b81)
 
