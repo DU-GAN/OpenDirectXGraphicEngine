@@ -1,5 +1,8 @@
 # OpenDirectXGraphicEngine
  Give me a window and give you a world.
+# Other information
+ Don't forget to press "E" to open the UI control panel after running.
+ We used third-party libraries Assymp and Dear IMGUI.
 ## Using this engine, you can achieve the following rendering effects 
 ### Example 1: City model rendered with materials
  Use material preview mode to render the city model and compare the rendering results of Blender and OpenDirectX GraphicEngine.
