@@ -1,10 +1,10 @@
 # OpenDirectXGraphicEngine
  Give me a window and give you a world.
 # ODGE Information
- Don't forget to press "E" to open the UI control panel after running.
+ Don't forget to press "E" to open the UI control panel after running.  
  If you want to import a model, please ensure that its texture file has a dds replacement format. For example, if the model has a texture of Texture/baseColor1. 
-png, the engine will search for Texture/baseColor1. dds.
- We used third-party libraries Assimp and Dear IMGUI.
+png, the engine will search for Texture/baseColor1. dds.  
+ We used third-party libraries Assimp and Dear IMGUI.  
  If you want to understand its implementation, you can refer to the "Overview of Graphics Engine Implementation" PPT file.
 ## Using this engine, you can achieve the following rendering effects 
 ### Example 1: City model rendered with materials
