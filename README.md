@@ -2,6 +2,7 @@
  Give me a window and give you a world.
 # Other information
  Don't forget to press "E" to open the UI control panel after running.
+ If you want to import a model, please ensure that its texture file has a dds replacement format. For example, if the model has a texture of Texture/baseColor1. png, the engine will search for Texture/baseColor1. dds.
  We used third-party libraries Assimp and Dear IMGUI.
 ## Using this engine, you can achieve the following rendering effects 
 ### Example 1: City model rendered with materials
