@@ -26,9 +26,14 @@ The use of lighting mode to render machine models in heavily attacked animations
 ### Example 4: Multi animation file separation model for lighting rendering
 The above models are all in the network universal model format GLTF. We are currently testing an FBX format model with bones, which does not come with animations. I have generated multiple animation files for it on the Mixamo website. After importing the model into ODGE, I tested loading multiple animations onto the model and successfully rendering and playing them.
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/8b0fc1a0-c05b-4aeb-a380-b03c90649b35)
+Play dance animation.
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/ba3cc26b-81a9-450a-9fa7-cea7dec79a24)
+Play cool animation.
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/0620b760-e57c-4e07-9932-17e31fda3d85)
+Play street dance animation.
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/f2387c93-eaad-47c1-bd53-851e31c1afec)
+Play whirlwind leg  animation.
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/a52b9279-dce7-4d3b-9908-1bb1eb12f9d8)
+Play hook fist animation.
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/04e2a154-9c28-4992-ba69-cbdfe1994b81)
 
