@@ -3,10 +3,11 @@
 # ODGE Information
 - Don't forget to press "E" to open the UI control panel after running.  
 - If you want to import a model, please ensure that its texture file has a dds replacement format. For example, if the model has a texture of Texture/baseColor1. 
-png, the engine will search for Texture/baseColor1. dds.  
+png, the engine will search for Texture/baseColor1. dds.  Kind reminder, the resource directory contains the Microsoft texconv tool and instructions for use.
 - We used third-party libraries Assimp and Dear IMGUI.  
 - If you want to understand its implementation, you can refer to the "Overview of Graphics Engine Implementation" PPT file.
 ## Using this engine, you can achieve the following rendering effects 
+The following models can be found in the published resources. The model name of Example 1 is "modern_city_block", Example 2 is "spartan_armour_mkv_ - _halo_reach", Example 3 is "reap_the_whirlwind". The textures of the models in the published resources all have corresponding. dds format maps, which means you can directly read them and render the following effects on your machine.
 ### Example 1: City model rendered with materials
  Use material preview mode to render the city model and compare the rendering results of Blender and OpenDirectX GraphicEngine.
 ![image](https://github.com/DU-GAN/OpenDirectXGraphicEngine/assets/165051859/a92b8bf9-cc2d-4050-9b28-52790d5136d2)
