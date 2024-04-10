@@ -1,2 +1,2 @@
 # OpenDirectXGraphicEngine
- Give me a window handle and give you a world.
+ give me a window and give you a world.
