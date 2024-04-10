@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine">
+      <UniqueIdentifier>{deeec239-764d-4280-b455-48f219c10f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ViewApplication">
+      <UniqueIdentifier>{0c05132d-76ac-4f68-b3ed-247c8fcd44cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Engine">
+      <UniqueIdentifier>{18fec847-7b32-4e84-a4c1-3030168038ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics">
+      <UniqueIdentifier>{651d8ee8-74cf-45d6-93e0-163272c0c635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\CPU Memory">
+      <UniqueIdentifier>{002ff28b-88b8-4e86-8fa0-e102c7ea1fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\CPU Memory\Animation">
+      <UniqueIdentifier>{f62b0387-a061-4d30-b6a1-19bfd67c5de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\CPU Memory\Geometry">
+      <UniqueIdentifier>{aa5a6197-3629-49a2-b358-a39502a59f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\CPU Memory\Model">
+      <UniqueIdentifier>{c4fb5e86-653d-4bc3-be80-f98fb58dab7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\CPU Memory\Material">
+      <UniqueIdentifier>{5e450303-fe37-4843-aab7-a6e1b109406d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory">
+      <UniqueIdentifier>{1b2aa15e-2138-4964-b30c-135bcfe1700c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\Function">
+      <UniqueIdentifier>{c957d04c-bb53-4d51-980b-2aed6e527adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory\ConstBuffer">
+      <UniqueIdentifier>{26e6d488-b0e6-4672-9454-4baaea39e4d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory\Geometry">
+      <UniqueIdentifier>{5f30def1-be47-48fe-999e-b2a6e44e25ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory\Texture">
+      <UniqueIdentifier>{3d4d8faa-f2ad-4674-9216-6b46535c9350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory\Render">
+      <UniqueIdentifier>{369ea61d-4bff-4f0f-b77b-411efae8d5a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Public">
+      <UniqueIdentifier>{c6d21aa5-492e-4b83-9074-994ddef59df6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Public\Auxiliary">
+      <UniqueIdentifier>{d8e4956e-1d47-47a6-bfb9-17e70a9331a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Public\Exception">
+      <UniqueIdentifier>{7db9e445-bb60-4974-ad63-bed91a960b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Public\Others">
+      <UniqueIdentifier>{86768b5b-91d0-47f4-ae1b-165944bd7c78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ViewApplication\Application">
+      <UniqueIdentifier>{9c292f5b-ecad-4cfa-9d33-a38ea1591428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ViewApplication\OnlyWindow">
+      <UniqueIdentifier>{68fb211c-d833-40e2-a5cd-10332f2dd9eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ViewApplication\SeparateWindow">
+      <UniqueIdentifier>{35e502b1-86e3-4a71-98e4-0f6e8e2f1495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Engine\Importe">
+      <UniqueIdentifier>{59b09a4e-aaa9-4327-87c5-2f9675d959ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory\Render\Resource">
+      <UniqueIdentifier>{d59d6190-e288-4a8f-a17c-928a38796d10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory\Render\Object">
+      <UniqueIdentifier>{776fc0d0-0152-4132-8afc-8e8fa1273f2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\GraphicEngine\Graphics\GPU Memory\Render\Manager">
+      <UniqueIdentifier>{f92516d6-2fa0-463e-8f2d-ce51e92ab18b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\IMGUI">
+      <UniqueIdentifier>{073f866e-ace3-4dcf-b20e-627b0c8eed43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\GraphicEngine">
+      <UniqueIdentifier>{88b1ed87-f867-42f1-97d7-4c0c06dafeed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ViewApplication">
+      <UniqueIdentifier>{eaea4dd2-7ac2-4b44-b283-0a9f492c09e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\Shader">
+      <UniqueIdentifier>{6685305a-8aa9-48f8-8f16-bf78da782809}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\code\head\Animation.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Application.h">
+      <Filter>头文件\ViewApplication\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\AuxiliaryBase.h">
+      <Filter>头文件\Public\Auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\AuxiliaryD3D.h">
+      <Filter>头文件\Public\Auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\BoneInformation.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Camera.h">
+      <Filter>头文件\GraphicEngine\Graphics\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\ConstBufferManager.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\ConstBufferType.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\D3DApp.h">
+      <Filter>头文件\GraphicEngine\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\D3DCore.h">
+      <Filter>头文件\GraphicEngine\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\d3dx12.h">
+      <Filter>头文件\Public\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\DDSTextureLoader.h">
+      <Filter>头文件\Public\Others</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Exception.h">
+      <Filter>头文件\Public\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\FunctionS.h">
+      <Filter>头文件\GraphicEngine\Graphics\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\GeometricConstructor.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\GeometryDesc.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\GeometryResource.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\FrameRsource.h">
+      <Filter>头文件\GraphicEngine\Engine\Importe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\GEvent.h">
+      <Filter>头文件\GraphicEngine\Engine\Importe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\GPUMemory.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\GraphicEngineProc.h">
+      <Filter>头文件\ViewApplication\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Light.h">
+      <Filter>头文件\GraphicEngine\Graphics\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\MacroDefine.h">
+      <Filter>头文件\Public\Auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\mainWndProc.h">
+      <Filter>头文件\ViewApplication\SeparateWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Material.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Mesh.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Model.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\natureWndProc.h">
+      <Filter>头文件\ViewApplication\SeparateWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\OnlyWindow.h">
+      <Filter>头文件\ViewApplication\OnlyWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\renderWndProc.h">
+      <Filter>头文件\ViewApplication\OnlyWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Sampler.h">
+      <Filter>头文件\GraphicEngine\Graphics\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\sceneWndProc.h">
+      <Filter>头文件\ViewApplication\SeparateWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\SeparateWindow.h">
+      <Filter>头文件\ViewApplication\SeparateWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\RenderItem.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Render\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\RenderItemWrap.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Render\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\RenderPipeline.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Shader.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\RenderResouce.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Render\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\SceneManager.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Render\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\TextureResource.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Timer.h">
+      <Filter>头文件\GraphicEngine\Graphics\Function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\toolWndProc.h">
+      <Filter>头文件\ViewApplication\SeparateWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\UString.h">
+      <Filter>头文件\Public\Auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Vertex.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Vertex_G.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\Vertex_GB.h">
+      <Filter>头文件\GraphicEngine\Graphics\CPU Memory\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\windowPublic.h">
+      <Filter>头文件\ViewApplication\SeparateWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\head\WorldTransform.h">
+      <Filter>头文件\GraphicEngine\Graphics\GPU Memory\ConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imconfig.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imgui.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imgui_impl_dx12.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imgui_impl_win32.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imgui_internal.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imstb_rectpack.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imstb_textedit.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third\include\imgui\imstb_truetype.h">
+      <Filter>源文件\IMGUI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\code\source\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Animation.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Application.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\AuxiliaryD3D.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Camera.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\ConstBufferManager.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\D3DApp.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\D3DCore.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\DDSTextureLoader.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\GeometryResource.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\GraphicEngineProc.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\mainWndProc.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Material.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\natureWndProc.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\OnlyWindow.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\renderWndProc.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Sampler.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\sceneWndProc.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\SeparateWindow.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\TextureResource.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Timer.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\toolWndProc.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Vertex_G.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\Vertex_GB.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\windowPublic.cpp">
+      <Filter>源文件\ViewApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\WorldTransform.cpp">
+      <Filter>源文件\GraphicEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third\include\imgui\imgui.cpp">
+      <Filter>源文件\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third\include\imgui\imgui_demo.cpp">
+      <Filter>源文件\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third\include\imgui\imgui_draw.cpp">
+      <Filter>源文件\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third\include\imgui\imgui_impl_dx12.cpp">
+      <Filter>源文件\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third\include\imgui\imgui_impl_win32.cpp">
+      <Filter>源文件\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third\include\imgui\imgui_tables.cpp">
+      <Filter>源文件\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third\include\imgui\imgui_widgets.cpp">
+      <Filter>源文件\IMGUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\resources\shader\Coordinate_Fragment_Shader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\Coordinate_Vertex_Shader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\Light_Auxiliary.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\LightFragmentShader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\LightVertexShader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\PBR_Animation_FragmentShader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\PBR_Animation_VertexShader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\PBR_Auxiliary.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\PBR_FragmentShader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\PBR_VertexShader.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resources\shader\Vertex_Auxiliary.hlsl">
+      <Filter>资源文件\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
