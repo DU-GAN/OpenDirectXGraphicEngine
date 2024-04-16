@@ -434,7 +434,7 @@ namespace Rendering
 
             LoadAnimations(scene, model);
 
-            BuildBox(model);
+            //BuildBox(model);
 
             return true;
         }
