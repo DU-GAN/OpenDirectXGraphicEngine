@@ -1453,7 +1453,7 @@ static HRESULT CreateTextureFromDDS(_In_ ID3D11Device* d3dDevice,
         assert(BitsPerPixel(format) != 0);
     }
 
-    // Bound sizes (for security purposes we don't trust DDS file metadata larger than the D3D 11.x hardware requirements)
+    // Bound sizes (for security purposes we don't trust DDS file metadata larger than the D3D 11[0] hardware requirements)
     if (mipCount > D3D11_REQ_MIP_LEVELS)
     {
         return HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED);
@@ -1786,7 +1786,7 @@ static HRESULT CreateTextureFromDDS12(
         assert(BitsPerPixel(format) != 0);
     }
 
-    // Bound sizes (for security purposes we don't trust DDS file metadata larger than the D3D 11.x hardware requirements)
+    // Bound sizes (for security purposes we don't trust DDS file metadata larger than the D3D 11[0] hardware requirements)
     if (mipCount > D3D12_REQ_MIP_LEVELS)
     {
         return HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED);

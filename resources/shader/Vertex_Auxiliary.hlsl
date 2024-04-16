@@ -14,7 +14,7 @@ struct VSIN_GB
     float2 TexCoord : TEXCOORD;
     float3 Tangent : TANGENT;
     float3 BiTangent : BITANGENT;
-    int4 BoneIds : BONEIDS;
+    uint4 BoneIds : BONEIDS;
     float3 BoneWeights : BONEWEIGHTS;
 };
 

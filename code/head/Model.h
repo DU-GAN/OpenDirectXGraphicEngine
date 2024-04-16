@@ -12,6 +12,7 @@
 #include "BoneInformation.h"
 #include "Animation.h"
 #include "Exception.h"
+#include "SphereBox.h"
 
 namespace Rendering
 {
@@ -74,6 +75,15 @@ namespace Rendering
         bool HaveBone()const
         {
             return haveBone;
+        }
+
+        bool& HaveSphereBox()
+        {
+            return haveBox;
+        }
+        SphereBox& GetSphereBox()
+        {
+            return sphereBox;
         }
 
         AssimpNodeData& GetNodeData()
@@ -349,11 +359,11 @@ namespace Rendering
             {
                 vertex.InitToDefaultValue();
 
-                vertex.position = DirectX::XMFLOAT3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-                vertex.normal = DirectX::XMFLOAT3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+                vertex.position = DirectX::XMFLOAT3(mesh->mVertices[i][0], mesh->mVertices[i][1], mesh->mVertices[i][2]);
+                vertex.normal = DirectX::XMFLOAT3(mesh->mNormals[i][0], mesh->mNormals[i][1], mesh->mNormals[i][2]);
                 if (mesh->mTextureCoords[0])
                 {
-                    vertex.texCoords = DirectX::XMFLOAT2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+                    vertex.texCoords = DirectX::XMFLOAT2(mesh->mTextureCoords[0][i][0], mesh->mTextureCoords[0][i][1]);
                 }
                 else
                 {
@@ -361,8 +371,8 @@ namespace Rendering
                 }
                 if (mesh->mTangents != NULL)
                 {
-                    vertex.tangent = DirectX::XMFLOAT3(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
-                    vertex.bitangent = DirectX::XMFLOAT3(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
+                    vertex.tangent = DirectX::XMFLOAT3(mesh->mTangents[i][0], mesh->mTangents[i][1], mesh->mTangents[i][2]);
+                    vertex.bitangent = DirectX::XMFLOAT3(mesh->mBitangents[i][0], mesh->mBitangents[i][1], mesh->mBitangents[i][2]);
                 }
 
                 resMesh.vertexs.push_back(vertex);
@@ -424,6 +434,8 @@ namespace Rendering
 
             LoadAnimations(scene, model);
 
+            BuildBox(model);
+
             return true;
         }
 
@@ -453,18 +465,18 @@ namespace Rendering
 
             for (UINT64 i = 0; i < mesh->mNumVertices; ++i)
             {
-                vertex.position = DirectX::XMFLOAT3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-                vertex.normal = DirectX::XMFLOAT3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+                vertex.position = DirectX::XMFLOAT3(mesh->mVertices[i][0], mesh->mVertices[i][1], mesh->mVertices[i][2]);
+                vertex.normal = DirectX::XMFLOAT3(mesh->mNormals[i][0], mesh->mNormals[i][1], mesh->mNormals[i][2]);
                 if (mesh->mTextureCoords[0])
                 {
-                    vertex.texCoords = DirectX::XMFLOAT2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+                    vertex.texCoords = DirectX::XMFLOAT2(mesh->mTextureCoords[0][i][0], mesh->mTextureCoords[0][i][1]);
                 }
                 else
                 {
                     vertex.texCoords = DirectX::XMFLOAT2(0.0f, 0.0f);
                 }
-                vertex.tangent = DirectX::XMFLOAT3(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
-                vertex.bitangent = DirectX::XMFLOAT3(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
+                vertex.tangent = DirectX::XMFLOAT3(mesh->mTangents[i][0], mesh->mTangents[i][1], mesh->mTangents[i][2]);
+                vertex.bitangent = DirectX::XMFLOAT3(mesh->mBitangents[i][0], mesh->mBitangents[i][1], mesh->mBitangents[i][2]);
 
                 resMesh.vertexs.push_back(vertex);
             }
@@ -563,6 +575,30 @@ namespace Rendering
             return true;
         }
 
+        static void BuildBox(Model<Vertex_GB>& model)
+        {
+            std::vector<Point3f> points;
+            int vertexNum = 0;
+
+            for (int i = 0; i < model.GetMeshs().size(); ++i)
+            {
+                vertexNum += model.GetMeshs()[i].GetVertexNumber();
+            }
+
+            points.reserve(vertexNum);
+
+            for (int i = 0; i < model.GetMeshs().size(); ++i)
+            {
+                for (int j = 0; j < model.GetMeshs()[i].GetVertexs().size(); ++j)
+                {
+                    points.push_back(model.GetMeshs()[i].GetVertexs()[j].position);
+                }
+            }
+
+            model.HaveSphereBox() = true;
+            model.GetSphereBox() = SphereBox::GetSphereBox(points.data(), points.size());
+        }
+
     private:
         // Model information
         UString name;
@@ -585,5 +621,8 @@ namespace Rendering
         BoneInformation boneInformation;
 
         std::vector<Animation> animations;
+
+        bool haveBox = false;
+        SphereBox sphereBox;
     };
 }

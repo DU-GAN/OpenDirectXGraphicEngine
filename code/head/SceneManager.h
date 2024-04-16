@@ -27,18 +27,18 @@ namespace Rendering
 			model = std::move(_model);
 		}
 
-		RenderItemWrap& LoadModelToGPU(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList,
-			UINT cbvSrvUavDescriptorsize, int minMipLevels = 0, int maxMipLevels = -1)
+		RenderItemWrap* LoadModelToGPU(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList,
+			UINT cbvSrvUavDescriptorsize, int frameNum = 1, int minMipLevels = 0, int maxMipLevels = -1)
 		{
 			gpuMemory.SetModel(model);
 
-			gpuMemory.CreateResource(device, cmdList, cbvSrvUavDescriptorsize, 1, minMipLevels, maxMipLevels);
+			gpuMemory.CreateResource(device, cmdList, cbvSrvUavDescriptorsize, frameNum, minMipLevels, maxMipLevels);
 			gpuMemory.BuildRenderItemWrap();
 
 			return gpuMemory.GetRenderItemWrap();
 		}
 
-		RenderItemWrap& GetRenderItemWrap()
+		RenderItemWrap* GetRenderItemWrap()
 		{
 			return gpuMemory.GetRenderItemWrap();
 		}

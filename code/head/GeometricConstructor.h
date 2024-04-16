@@ -9,6 +9,63 @@ namespace Rendering
 	class GeometricConstructor
 	{
 	public:
+		static void GenerateSphereMesh(Model<Vertex_G>& model, int STACK_COUNT = 16, int SLICE_COUNT = 32)
+		{
+			Mesh<Vertex_G>& resMesh = AddElementVector(model.GetMeshs());
+
+			resMesh.Reserve((STACK_COUNT + 1) * (SLICE_COUNT + 1), 2 * SLICE_COUNT * STACK_COUNT + 2 * SLICE_COUNT);
+			resMesh.GetVertexs().resize((STACK_COUNT + 1) * (SLICE_COUNT + 1));
+
+			int vertexIndex = 0;
+			for (int i = 0; i <= STACK_COUNT; ++i) {
+				float v = static_cast<float>(i) / STACK_COUNT;
+				float phi = v * MATH_PI;
+
+				for (int j = 0; j <= SLICE_COUNT; ++j) {
+					float u = static_cast<float>(j) / SLICE_COUNT;
+					float theta = 2.0f * MATH_PI * u;
+
+					resMesh.GetVertexs()[vertexIndex].position.x = sinf(phi) * cosf(theta);
+					resMesh.GetVertexs()[vertexIndex].position.y = sinf(phi) * sinf(theta);
+					resMesh.GetVertexs()[vertexIndex].position.z = cosf(phi);
+
+					++vertexIndex;
+				}
+			}
+
+			for (int i = 0; i < STACK_COUNT; ++i) {
+				for (int j = 0; j < SLICE_COUNT; ++j) {
+					resMesh.AddIndex(i * (SLICE_COUNT + 1) + j);
+					resMesh.AddIndex((i + 1) * (SLICE_COUNT + 1) + j);
+					resMesh.AddIndex((i + 1) * (SLICE_COUNT + 1) + j + 1);
+
+					resMesh.AddIndex(i * (SLICE_COUNT + 1) + j);
+					resMesh.AddIndex((i + 1) * (SLICE_COUNT + 1) + j + 1);
+					resMesh.AddIndex(i * (SLICE_COUNT + 1) + j + 1);
+				}
+			}
+
+			resMesh.AddIndex(STACK_COUNT * (SLICE_COUNT + 1));
+			for (int j = 1; j < SLICE_COUNT; ++j) {
+				resMesh.AddIndex(STACK_COUNT * (SLICE_COUNT + 1));
+				resMesh.AddIndex(STACK_COUNT * (SLICE_COUNT + 1) + j + 1);
+				resMesh.AddIndex(STACK_COUNT * (SLICE_COUNT + 1) + j);
+			}
+			resMesh.AddIndex(STACK_COUNT * (SLICE_COUNT + 1));
+			resMesh.AddIndex(STACK_COUNT * (SLICE_COUNT + 1) + 1);
+			resMesh.AddIndex(0);
+
+			resMesh.AddIndex(0);
+			for (int j = SLICE_COUNT - 1; j > 0; --j) {
+				resMesh.AddIndex(0);
+				resMesh.AddIndex(j);
+				resMesh.AddIndex(j + 1);
+			}
+			resMesh.AddIndex(0);
+			resMesh.AddIndex(1);
+			resMesh.AddIndex(SLICE_COUNT + 1);
+		}
+
 		static void LoadCubeGeometric(
 			std::vector<DirectX::XMFLOAT3>& pos,
 			std::vector<DirectX::XMFLOAT2>& tex,

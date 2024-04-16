@@ -74,6 +74,7 @@ namespace Rendering
 
 		virtual void LoadCoordinateModel(int xLength, int zLength, float dx = 1, float dz = 1);
 
+		virtual void LoadDefaultRenderItem();
 	protected:
 		// other graphics need object
 		Camera camera;												

@@ -109,7 +109,7 @@ namespace Rendering
             textureFormatSize = texturePath.GetStr().size() - (pos + 1);
         }
 
-        // Change "texture\\baseColor.xxx" to "texture\\baseColor.dds"
+        // Change "texture\\baseColor[0]xx" to "texture\\baseColor.dds"
         texturePath.GetStr().replace(pos + 1, textureFormatSize, "dds");
 
         // Change "texture\\baseColor.dds" to "D\\Model\\texture\\baseColor.dds"

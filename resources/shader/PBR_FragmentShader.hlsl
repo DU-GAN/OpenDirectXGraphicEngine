@@ -83,7 +83,7 @@ PBRIN SamplerPBR(PSIN psin)
     }
     else
     {
-        pbin.emissive = pow(tEmissiveMap.Sample(sAnisotropicWrap, psin.TexCoord).rgb, 2.2);
+        pbin.emissive = tEmissiveMap.Sample(sAnisotropicWrap, psin.TexCoord).rgb;
     }
     pbin.emissive = pbin.emissive * material.cEmissiveIntensity_3;
     
@@ -118,8 +118,17 @@ PBRIN SamplerPBR(PSIN psin)
 
 float GetOpacity(PSIN psin)
 {
-    if(material.cB7 == 1)
-        return material.cOpacity_7;
+    if (material.cB7 == 1)
+    {
+        if (material.cB0 == 0)
+        {
+            return tAlbedlMap.Sample(sAnisotropicWrap, psin.TexCoord).a;
+        }
+        else
+        {
+            return material.cOpacity_7;
+        }
+    }
     else
         return tOpacityMap.Sample(sAnisotropicWrap, psin.TexCoord).a;
 }

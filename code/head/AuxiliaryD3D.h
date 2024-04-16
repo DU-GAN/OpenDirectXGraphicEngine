@@ -49,7 +49,7 @@ namespace Rendering
 
     inline DirectX::XMFLOAT3 ConvertAiVectorToXMFLOAT3(const aiVector3D& aiVec)
     {
-        return  DirectX::XMFLOAT3(aiVec.x, aiVec.y, aiVec.z);
+        return  DirectX::XMFLOAT3(aiVec[0], aiVec[1], aiVec[2]);
     }
 
     inline DirectX::XMFLOAT4X4 ConvertAssimpMatrixToDirectX(const aiMatrix4x4& assimpMatrix)

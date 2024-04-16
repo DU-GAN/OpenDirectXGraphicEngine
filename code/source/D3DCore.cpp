@@ -61,12 +61,12 @@ namespace Rendering
 
 		if (showLight == false)
 		{
-			renderResourceManager.GetRenderItemWraps()[1].GetWorldTransform().scale = DirectX::XMFLOAT3(0.072, 0.072, 0.072);
-			renderResourceManager.GetRenderItemWraps()[1].GetWorldTransform().transln = DirectX::XMFLOAT3(x, y, z);
+			renderResourceManager.GetRenderItemWraps()[1]->GetWorldTransform().scale = DirectX::XMFLOAT3(0.072, 0.072, 0.072);
+			renderResourceManager.GetRenderItemWraps()[1]->GetWorldTransform().transln = DirectX::XMFLOAT3(x, y, z);
 		}
-		renderResourceManager.GetRenderItemWraps()[1].UpdateWorldCB(frameIndex);
+		renderResourceManager.GetRenderItemWraps()[1]->UpdateWorldCB(frameIndex);
 		lightManager.GetLights()[0].pos = renderResourceManager.
-			GetRenderItemWraps()[1].GetWorldTransform().transln;
+			GetRenderItemWraps()[1]->GetWorldTransform().transln;
 
 		passData.cameraPosW = camera.GetPosition3f();
 		passData.lightNum = lightManager.GetNumLight();
@@ -184,6 +184,7 @@ namespace Rendering
 		InitRenderPipline();
 
 		LoadCoordinateModel(100, 100, 1, 1);
+		LoadDefaultRenderItem();
 
 		Exception::CheckResult(mCommandList->Close());
 		ID3D12CommandList* cmdLists[] = { mCommandList.Get() };
@@ -452,48 +453,81 @@ namespace Rendering
 
 	void GraphicEngine::DrawItems(FrameIndex frameIndex,bool enableMsaa)
 	{
-		std::vector<RenderItemWrap>& renderItemWraps = renderResourceManager.GetRenderItemWraps();
+		std::vector<RenderItemWrap*>& renderItemWraps = renderResourceManager.GetRenderItemWraps();
 
 		{
-			if (renderItemWraps[0].isVisible)
+			if (renderItemWraps[0]->isVisible)
 			{
 				mCommandList->SetPipelineState(
-					renderItemWraps[0].renderPiplineP->GetPiplineState(enableMsaa, mMSAASampleCount).Get());
+					renderItemWraps[0]->renderPiplineP->GetPiplineState(enableMsaa, mMSAASampleCount).Get());
 				mCommandList->SetGraphicsRootSignature(
-					renderItemWraps[0].renderPiplineP->GetRootSignature().Get());
+					renderItemWraps[0]->renderPiplineP->GetRootSignature().Get());
 				mCommandList->SetGraphicsRootConstantBufferView(1, passCB.GetCBAddress(frameIndex));
 				mCommandList->SetGraphicsRootConstantBufferView(2, coordinateColorCB.GetCBAddress(frameIndex));
 
-				renderItemWraps[0].renderItems[0].DrawItem(
-					mCommandList.Get(), renderItemWraps[0].primitiveType,
-					renderItemWraps[0].worldCB->GetCBAddress(frameIndex));
+				renderItemWraps[0]->renderItems[0].DrawItem(
+					mCommandList.Get(), renderItemWraps[0]->primitiveType,
+					renderItemWraps[0]->worldCB->GetCBAddress(frameIndex));
 			}
 
-			if (renderItemWraps[1].isVisible)
+			if (renderItemWraps[1]->isVisible)
 			{
 				mCommandList->SetPipelineState(
-					renderItemWraps[1].renderPiplineP->GetPiplineState(enableMsaa, mMSAASampleCount).Get());
+					renderItemWraps[1]->renderPiplineP->GetPiplineState(enableMsaa, mMSAASampleCount).Get());
 				mCommandList->SetGraphicsRootSignature(
-					renderItemWraps[1].renderPiplineP->GetRootSignature().Get());
+					renderItemWraps[1]->renderPiplineP->GetRootSignature().Get());
 				mCommandList->SetGraphicsRootConstantBufferView(1, passCB.GetCBAddress(frameIndex));
 
-				renderItemWraps[1].renderItems[0].DrawItem(
-					mCommandList.Get(), renderItemWraps[1].primitiveType,
-					renderItemWraps[1].worldCB->GetCBAddress(frameIndex));
+				renderItemWraps[1]->renderItems[0].DrawItem(
+					mCommandList.Get(), renderItemWraps[1]->primitiveType,
+					renderItemWraps[1]->worldCB->GetCBAddress(frameIndex));
 			}
+
+
 		}
 
 		{
-			if (renderItemWraps.size() < 2)
+			if (renderItemWraps.size() < 3)
 				return;
-			for (int i = 2; i < renderItemWraps.size(); ++i)
+		
+			WorldTransform& worldTransform = renderItemWraps[2]->GetWorldTransform();
+			
+			for (int i = 3; i < renderItemWraps.size(); ++i)
 			{
-				if (renderItemWraps[i].isVisible)
+				if (renderItemWraps[i]->isVisible)
 				{
-					renderItemWraps[i].UpdateAnimation(frameIndex, mTimer.TotalTime(), false);
-					renderItemWraps[i].DrawWrap(
+					renderItemWraps[i]->UpdateAnimation(frameIndex, mTimer.TotalTime(), false);
+					renderItemWraps[i]->DrawWrap(
 						mCommandList.Get(), frameIndex,
 						passCB, mCbvSrvUavDescriptorSize, enableMsaa);
+					
+					if (renderItemWraps[i]->memory->HaveSphereBox())
+					{
+						SphereBox sphereBox = renderItemWraps[i]->memory->GetSphereBox();
+
+						float scale = sphereBox.radius * renderItemWraps[i]->worldTransform.scale.x * 0.5;
+
+						worldTransform.SetScale(scale, scale, scale);
+						worldTransform.SetTranslate(
+							renderItemWraps[i]->GetWorldTransform().transln.x,
+							renderItemWraps[i]->GetWorldTransform().transln.y,
+							renderItemWraps[i]->GetWorldTransform().transln.z);
+
+						renderItemWraps[2]->UpdateWorldCB(frameIndex);
+
+						if (renderItemWraps[2]->isVisible)
+						{
+							mCommandList->SetPipelineState(
+								renderItemWraps[2]->renderPiplineP->GetPiplineState(enableMsaa, mMSAASampleCount).Get());
+							mCommandList->SetGraphicsRootSignature(
+								renderItemWraps[2]->renderPiplineP->GetRootSignature().Get());
+							mCommandList->SetGraphicsRootConstantBufferView(1, passCB.GetCBAddress(frameIndex));
+
+							renderItemWraps[2]->renderItems[0].DrawItem(
+								mCommandList.Get(), renderItemWraps[2]->primitiveType,
+								renderItemWraps[2]->worldCB->GetCBAddress(frameIndex));
+						}
+					}
 				}
 			}
 		}
@@ -518,15 +552,15 @@ namespace Rendering
 		std::vector<MemoryWrop<Vertex_G>>& memorys_g
 			= memoryManager.GetMemoryG();
 
+		std::vector<MemoryWrop<Vertex_GB>>& memorys_gb
+			= memoryManager.GetMemoryGB();
+
 		for (int i = 0; i < memorys_g.size(); ++i)
 		{
 			memorys_g[i].GetGPUMemory().Reset(
 				md3dDevice.Get(), mCommandList.Get(),
 				mCbvSrvUavDescriptorSize, frameNum);
 		}
-
-		std::vector<MemoryWrop<Vertex_GB>>& memorys_gb
-			= memoryManager.GetMemoryGB();
 
 		for (int i = 0; i < memorys_gb.size(); ++i)
 		{
@@ -535,30 +569,19 @@ namespace Rendering
 				mCbvSrvUavDescriptorSize, frameNum);
 		}
 
-		FreeVector(renderResourceManager.GetRenderItemWraps());
-
-		for (int i = 0; i < memoryManager.GetMemoryG().size(); ++i)
-		{
-			RenderItemWrap renderItemWrap = memoryManager.GetMemoryG()[i].GetRenderItemWrap();
-
-			renderItemWrap.SetRenderPipline(&renderResourceManager.GetPiplines()[1]);
-			renderItemWrap.SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-			renderResourceManager.GetRenderItemWraps().push_back(renderItemWrap);
-		}
-
-		for (int i = 0; i < memoryManager.GetMemoryGB().size(); ++i)
-		{
-			RenderItemWrap renderItemWrap = memoryManager.GetMemoryGB()[i].GetRenderItemWrap();
-
-			renderItemWrap.SetRenderPipline(&renderResourceManager.GetPiplines()[2]);
-			renderItemWrap.SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-			renderResourceManager.GetRenderItemWraps().push_back(renderItemWrap);
-		}
-		
-
 		CloseCommandList();
+
+		FlushCommandQueue();
+
+		for (int i = 0; i < memorys_g.size(); ++i)
+		{
+			memorys_g[i].FreeUploadSpace();
+		}
+
+		for (int i = 0; i < memorys_gb.size(); ++i)
+		{
+			memorys_gb[i].FreeUploadSpace();
+		}
 	}
 
 	void GraphicEngine::SetFrameResourceNum(int _frameResourceNum)
@@ -729,7 +752,7 @@ namespace Rendering
 			{
 				
 			}
-			renderResourceManager.GetRenderItemWraps()[1].isVisible = showLight;
+			renderResourceManager.GetRenderItemWraps()[1]->isVisible = showLight;
 			{
 				enum Element { DISABLE, E4X, E8X, Element_COUNT };
 				std::vector<UString> msaaSampleCounts;
@@ -803,15 +826,13 @@ namespace Rendering
 					et.i1 = elem4;
 				}
 			}
-			/*
-						{
+			{
 				static int i1 = 1;
 				ImGui::SliderInt(" Frame resource number", &i1, 1, 24);
 				GEvent& et = AddElementVector(events);
 				et.type = GEvent::Type::UpdateFrameResource;
 				et.i1 = i1;
 			}
-			*/
 
 			ImGui::PopStyleColor();
 
@@ -842,10 +863,10 @@ namespace Rendering
 
 			for (int i = 0; i < renderResourceManager.GetRenderItemWraps().size(); ++i)
 			{
-				RenderItemWrap& renderItemWrap = renderResourceManager.GetRenderItemWraps()[i];
-				GPUMemory* gpuMemory = renderItemWrap.memory;
+				RenderItemWrap* renderItemWrap = renderResourceManager.GetRenderItemWraps()[i];
+				GPUMemory* gpuMemory = renderItemWrap->memory;
 
-				if (!renderItemWrap.suportAnimation)
+				if (!renderItemWrap->suportAnimation)
 				{
 					gCount += 1;
 					std::string str = std::string("[") + std::to_string(i) + "] : " +
@@ -854,7 +875,7 @@ namespace Rendering
 
 					if (ImGui::CollapsingHeader(str.c_str())) {
 						s = "Visible##G" + std::to_string(gCount);
-						if (ImGui::Checkbox(s.c_str(), &renderItemWrap.isVisible))
+						if (ImGui::Checkbox(s.c_str(), &renderItemWrap->isVisible))
 						{
 						}
 						ImGui::SameLine();
@@ -871,13 +892,16 @@ namespace Rendering
 						s = "Scaleing##G" + std::to_string(gCount);
 						ImGui::SliderFloat(s.c_str(), modelInfos_G[gCount].scale, 0, 1);
 
-						WorldTransform& wf = renderItemWrap.GetWorldTransform();
+						if (i != 2)
+						{
+							WorldTransform& wf = renderItemWrap->GetWorldTransform();
 
-						wf.SetScale(modelInfos_G[gCount].scale[0], modelInfos_G[gCount].scale[0], modelInfos_G[gCount].scale[0]);
-						wf.SetRotate(modelInfos_G[gCount].rotate[0], modelInfos_G[gCount].rotate[1], modelInfos_G[gCount].rotate[2]);
-						wf.SetTranslate(modelInfos_G[gCount].position[0], modelInfos_G[gCount].position[1], modelInfos_G[gCount].position[2]);
+							wf.SetScale(modelInfos_G[gCount].scale[0], modelInfos_G[gCount].scale[0], modelInfos_G[gCount].scale[0]);
+							wf.SetRotate(modelInfos_G[gCount].rotate[0], modelInfos_G[gCount].rotate[1], modelInfos_G[gCount].rotate[2]);
+							wf.SetTranslate(modelInfos_G[gCount].position[0], modelInfos_G[gCount].position[1], modelInfos_G[gCount].position[2]);
 
-						renderItemWrap.UpdateWorldCB(frameIndex);
+							renderItemWrap->UpdateWorldCB(frameIndex);
+						}
 					}
 				}
 				else
@@ -889,7 +913,7 @@ namespace Rendering
 
 					if (ImGui::CollapsingHeader(str.c_str())) {
 						s = "Visible##" + std::to_string(gbCount);
-						if (ImGui::Checkbox(s.c_str(), &renderItemWrap.isVisible))
+						if (ImGui::Checkbox(s.c_str(), &renderItemWrap->isVisible))
 						{
 						}
 						ImGui::SameLine();
@@ -921,7 +945,7 @@ namespace Rendering
 						s = "Scaleing##" + std::to_string(gbCount);
 						ImGui::SliderFloat(s.c_str(), modelInfos_GB[gbCount].scale, 0, 1);
 
-						WorldTransform& wf = renderItemWrap.GetWorldTransform();
+						WorldTransform& wf = renderItemWrap->GetWorldTransform();
 
 						wf.SetScale(modelInfos_GB[gbCount].scale[0], 
 							modelInfos_GB[gbCount].scale[0], modelInfos_GB[gbCount].scale[0]);
@@ -930,10 +954,10 @@ namespace Rendering
 						wf.SetTranslate(modelInfos_GB[gbCount].position[0], 
 							modelInfos_GB[gbCount].position[1], modelInfos_GB[gbCount].position[2]);
 
-						renderItemWrap.UpdateWorldCB(frameIndex);
+						renderItemWrap->UpdateWorldCB(frameIndex);
 
 						std::vector<Animation>* animationsP =
-							renderItemWrap.GetAnimationsP();
+							renderItemWrap->GetAnimationsP();
 						modelInfos_GB[gbCount].animationName.resize(2 + animationsP->size());
 
 						modelInfos_GB[gbCount].animationName[0] = "static";
@@ -951,36 +975,36 @@ namespace Rendering
 						{
 							isChange = true;
 							if (modelInfos_GB[gbCount].animationIndex == 0)
-								renderItemWrap.StopPlayAnimaiton(frameIndex);
+								renderItemWrap->StopPlayAnimaiton(frameIndex);
 							else
 							{
-								renderItemWrap.PlayAnimation(&(*animationsP)[modelInfos_GB[gbCount].animationIndex - 1]);
+								renderItemWrap->PlayAnimation(&(*animationsP)[modelInfos_GB[gbCount].animationIndex - 1]);
 							}
 						}
-						if (renderItemWrap.animator.m_CurrentAnimation != nullptr)
+						if (renderItemWrap->animator.m_CurrentAnimation != nullptr)
 						{
 							s = "timeSpeed##" + std::to_string(gbCount);
 							ImGui::SliderFloat(s.c_str(), &modelInfos_GB[gbCount].animationSpeed, 0, 10);
-							renderItemWrap.animator.timeSpace = modelInfos_GB[gbCount].animationSpeed;
+							renderItemWrap->animator.timeSpace = modelInfos_GB[gbCount].animationSpeed;
 							if (modelInfos_GB[gbCount].timeRange[0] < 0 || modelInfos_GB[gbCount].timeRange[1] < 0 || isChange)
 							{
 								modelInfos_GB[gbCount].timeRange[0] = 0;
 								modelInfos_GB[gbCount].timeRange[1] =
-									renderItemWrap.animator.m_CurrentAnimation->m_duration;
+									renderItemWrap->animator.m_CurrentAnimation->m_duration;
 								isChange = false;
 							}
 							s = "Animation Range##" + std::to_string(gbCount);
 							ImGui::DragFloatRange2(s.c_str(),
 								&modelInfos_GB[gbCount].timeRange[0],
 								&modelInfos_GB[gbCount].timeRange[1],
-								1.0f, 0.0f, renderItemWrap.animator.m_CurrentAnimation->m_duration);
-							renderItemWrap.animator.SetDebugMode(
+								1.0f, 0.0f, renderItemWrap->animator.m_CurrentAnimation->m_duration);
+							renderItemWrap->animator.SetDebugMode(
 								true, modelInfos_GB[gbCount].timeRange[0], modelInfos_GB[gbCount].timeRange[1]);
 
-							float k = renderItemWrap.animator.m_CurrentTime /
-								renderItemWrap.animator.m_CurrentAnimation->m_duration;
+							float k = renderItemWrap->animator.m_CurrentTime /
+								renderItemWrap->animator.m_CurrentAnimation->m_duration;
 							ImGui::ProgressBar(k, ImVec2(0.0f, 0.0f), (std::to_string(100 * k) + "%").c_str());
-							ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
+							ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing[0]);
 
 							s = "Animation Process##" + std::to_string(gbCount);
 							ImGui::Text(s.c_str());
@@ -1015,12 +1039,14 @@ namespace Rendering
 		float dTime = mTimer.NowTotalTime() - time;
 		time = mTimer.NowTotalTime();
 
-		std::vector<RenderItemWrap>& renderItemWraps = renderResourceManager.GetRenderItemWraps();
+		std::vector<RenderItemWrap*>& renderItemWraps = renderResourceManager.GetRenderItemWraps();
 		if (renderItemWraps.size() < 1)
 			return;
 
 		ID3D12CommandAllocator* frameCommandAllocator = nullptr;
 		FrameIndex frameIndex = frameCommandManager.BeginNewFrame(mCommandQueue.Get(), mFence.Get(), frameCommandAllocator);
+
+		PresentSwapChain();
 
 		UploadPassCB(frameIndex);
 
@@ -1109,8 +1135,6 @@ namespace Rendering
 		ID3D12CommandList* cmdsLists[] = { mCommandList.Get() };
 		mCommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 
-		PresentSwapChain();
-
 		frameCommandManager.EndFrame(mCommandQueue.Get(), mFence.Get(), mCurrentFence);
 
 		static float c = 0;
@@ -1168,11 +1192,11 @@ namespace Rendering
 		mesh.SetPBRMaterilaIndex(model.GetMaterialManager().GetDefaultMaterialIndex());
 		model.GetMeshs().push_back(std::move(mesh));
 
-		RenderItemWrap renderItemWrap = 
+		RenderItemWrap* renderItemWrap = 
 			memoryWrop.LoadModelToGPU(md3dDevice.Get(), mCommandList.Get(), mCbvSrvUavDescriptorSize);
 
-		renderItemWrap.SetRenderPipline(&renderResourceManager.GetPiplines()[0]);
-		renderItemWrap.SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
+		renderItemWrap->SetRenderPipline(&renderResourceManager.GetPiplines()[0]);
+		renderItemWrap->SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
 
 		renderResourceManager.GetRenderItemWraps().push_back(renderItemWrap);
 
@@ -1186,15 +1210,39 @@ namespace Rendering
 			memoryWrop.GetModel().GetMeshs()[0].SetPBRMaterilaIndex(model.
 				GetMaterialManager().GetDefaultMaterialIndex());
 			
-			RenderItemWrap renderItemWrap =
+			RenderItemWrap* renderItemWrap =
 				memoryWrop.LoadModelToGPU(md3dDevice.Get(), mCommandList.Get(), mCbvSrvUavDescriptorSize);
 
-			renderItemWrap.SetRenderPipline(&renderResourceManager.GetPiplines()[3]);
-			renderItemWrap.SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			renderItemWrap.isVisible = false;
+			renderItemWrap->SetRenderPipline(&renderResourceManager.GetPiplines()[3]);
+			renderItemWrap->SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			renderItemWrap->isVisible = false;
 
 			renderResourceManager.GetRenderItemWraps().push_back(renderItemWrap);
 		}
+	}
+
+	void GraphicEngine::LoadDefaultRenderItem()
+	{
+		memoryManager.GetMemoryG().emplace_back();
+
+		MemoryWrop<Vertex_G>& memoryWrop = memoryManager.GetMemoryG().back();
+		Model<Vertex_G>& model = memoryWrop.GetModel();
+		
+		GeometricConstructor::GenerateSphereMesh(memoryWrop.GetModel());
+		model.SetName("Sphere Box");
+
+		model.GetMaterialManager().AddDefaultMaterial();
+
+		model.GetMeshs()[0].SetPBRMaterilaIndex(model.GetMaterialManager().GetDefaultMaterialIndex());
+		
+		RenderItemWrap* renderItemWrap =
+			memoryWrop.LoadModelToGPU(md3dDevice.Get(), mCommandList.Get(), mCbvSrvUavDescriptorSize);
+
+		renderItemWrap->SetRenderPipline(&renderResourceManager.GetPiplines()[3]);
+		renderItemWrap->SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		renderItemWrap->isVisible = false;
+
+		renderResourceManager.GetRenderItemWraps().push_back(renderItemWrap);
 	}
 
 	void GraphicEngine::LoadModel(UString const& modelPath)
@@ -1213,11 +1261,11 @@ namespace Rendering
 			MemoryWrop<Vertex_G>& memoryWrop = memoryManager.GetMemoryG().back();
 
 			memoryWrop.LoadModelToCPU(modelPath, scene, modelPath);
-			RenderItemWrap renderItemWrap = memoryWrop.LoadModelToGPU(
-				md3dDevice.Get(), mCommandList.Get(), mCbvSrvUavDescriptorSize);
+			RenderItemWrap* renderItemWrap = memoryWrop.LoadModelToGPU(
+				md3dDevice.Get(), mCommandList.Get(), mCbvSrvUavDescriptorSize, frameNum);
 
-			renderItemWrap.SetRenderPipline(&renderResourceManager.GetPiplines()[1]);
-			renderItemWrap.SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			renderItemWrap->SetRenderPipline(&renderResourceManager.GetPiplines()[1]);
+			renderItemWrap->SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 			renderResourceManager.GetRenderItemWraps().push_back(renderItemWrap);
 
@@ -1231,11 +1279,11 @@ namespace Rendering
 			MemoryWrop<Vertex_GB>& memoryWrop = memoryManager.GetMemoryGB().back();
 
 			memoryWrop.LoadModelToCPU(modelPath, scene, modelPath);
-			RenderItemWrap renderItemWrap = memoryWrop.LoadModelToGPU(
-				md3dDevice.Get(), mCommandList.Get(), mCbvSrvUavDescriptorSize);
+			RenderItemWrap* renderItemWrap = memoryWrop.LoadModelToGPU(
+				md3dDevice.Get(), mCommandList.Get(), mCbvSrvUavDescriptorSize, frameNum);
 
-			renderItemWrap.SetRenderPipline(&renderResourceManager.GetPiplines()[2]);
-			renderItemWrap.SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			renderItemWrap->SetRenderPipline(&renderResourceManager.GetPiplines()[2]);
+			renderItemWrap->SetPrimitiveType(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 			renderResourceManager.GetRenderItemWraps().push_back(renderItemWrap);
 

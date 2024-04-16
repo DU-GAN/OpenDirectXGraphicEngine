@@ -13,11 +13,11 @@ cbuffer worldMatr2 : register(b2)
 
 float4 PS(PSIN psin) : SV_Target
 {
-    if (abs(psin.PosW.x - 0.0f) < 0.1f)
+    if (abs(psin.PosW[0] - 0.0f) < 0.1f)
     {
         return zColor;
     }
-    else if (abs(psin.PosW.z - 0.0f) < 0.1f)
+    else if (abs(psin.PosW[2] - 0.0f) < 0.1f)
     {
         return xColor;
     }

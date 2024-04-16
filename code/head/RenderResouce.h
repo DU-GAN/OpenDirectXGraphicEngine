@@ -22,13 +22,13 @@ namespace Rendering
 			return shaders;
 		}
 
-		inline std::vector<RenderItemWrap>& GetRenderItemWraps()
+		inline std::vector<RenderItemWrap*>& GetRenderItemWraps()
 		{
 			return renderItemsWraps;
 		}
 
 	private:
-		std::vector<RenderItemWrap> renderItemsWraps;
+		std::vector<RenderItemWrap*> renderItemsWraps;
 		std::vector<RenderPipline> piplines;
 		std::vector<Shader> shaders;
 	};

@@ -33,9 +33,9 @@ VSOUT VS(VSIN_G vin)
     vout.PosW = mul(float4(vin.PosL, 1.0f), cWorld);
     vout.PosH = mul(vout.PosW, cViewProj);
     vout.NormalW = mul(vin.Normal, (float3x3) cInvTransWorld);
-    vout.TexCoord = vin.TexCoord;
     vout.Tangent = mul(vin.Tangent, (float3x3) cInvTransWorld);
     vout.BiTangent = mul(vin.BiTangent, (float3x3) cInvTransWorld);
+    vout.TexCoord = vin.TexCoord;
     
     return vout;
 }

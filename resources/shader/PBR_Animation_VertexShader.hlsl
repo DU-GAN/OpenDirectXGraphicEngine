@@ -36,9 +36,9 @@ VSOUT VS(VSIN_GB vin)
     VSOUT vout = (VSOUT) 0.0f;
 
     float weights[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    weights[0] = vin.BoneWeights.x;
-    weights[1] = vin.BoneWeights.y;
-    weights[2] = vin.BoneWeights.z;
+    weights[0] = vin.BoneWeights[0];
+    weights[1] = vin.BoneWeights[1];
+    weights[2] = vin.BoneWeights[2];
     weights[3] = 1.0f - weights[0] - weights[1] - weights[2];
     
     float3 posL = float3(0.0f, 0.0f, 0.0f);

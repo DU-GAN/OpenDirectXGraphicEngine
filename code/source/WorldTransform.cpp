@@ -4,8 +4,7 @@ namespace Rendering
 {
 	WorldMatrix::WorldMatrix(DirectX::XMFLOAT4X4 _world)
 	{
-		world = _world;
-		invTransWorld = InverseTransposeT(world);
+		SetWorld(_world);
 	}
 
 	DirectX::XMFLOAT4X4 WorldMatrix::GetWorld()const
@@ -16,6 +15,7 @@ namespace Rendering
 	void WorldMatrix::SetWorld(DirectX::XMFLOAT4X4& _world)
 	{
 		world = _world;
+		invTransWorld = InverseTransposeT(world);
 	}
 
 	WorldMatrix WorldMatrix::GetData()

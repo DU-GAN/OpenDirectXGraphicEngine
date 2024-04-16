@@ -80,11 +80,11 @@ PBRIN SamplerPBR(PSIN psin)
     
     if (material.cB2 == 1)
     {
-        pbin.emissive = material.cEmissiveColor_2;
+        pbin.emissive = material.cEmissiveColor_2, 2.2;
     }
     else
     {
-        pbin.emissive = pow(tEmissiveMap.Sample(sAnisotropicWrap, psin.TexCoord).rgb, 2.2);
+        pbin.emissive = tEmissiveMap.Sample(sAnisotropicWrap, psin.TexCoord).rgb;
     }
     pbin.emissive = pbin.emissive * material.cEmissiveIntensity_3;
     

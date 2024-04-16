@@ -104,7 +104,6 @@ namespace Rendering
 			if (!isBuild)
 				Exception::ThrowException(LEVEL_Error, "no build");
 
-			frameCount = (frameCount + 1) % frameNum;
 			auto& frameReource = frameResources[frameCount];
 
 			// wait now frame rendering end
@@ -131,6 +130,7 @@ namespace Rendering
 
 			Exception::CheckResult(
 				mCommandQueue->Signal(fence, currentFence));
+			frameCount = (frameCount + 1) % frameNum;
 		}
 
 	private:

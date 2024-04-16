@@ -446,7 +446,7 @@ namespace Rendering
 
     void D3DCore::FlushCommandQueue()
     {
-        mCurrentFence++;
+        ++mCurrentFence;
 
         Exception::CheckResult(mCommandQueue->Signal(
             mFence.Get(), mCurrentFence

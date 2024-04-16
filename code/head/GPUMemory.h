@@ -64,6 +64,9 @@ namespace Rendering
 				renderItemWrap.renderItems[i].SetTextureIndex(
 					model.GetMaterialManager().GetMaterials()[renderItemWrap.renderItems[i].materialIndex]);
 			}
+
+			haveSphereBox = model.HaveSphereBox();
+			sphereBox = model.GetSphereBox();
 		}
 
 		void CreateResource(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList,
@@ -196,6 +199,8 @@ namespace Rendering
 			}
 
 			isUpload = true;
+
+			BuildRenderItemWrap();
 		}
 
 		void FreeResource()
@@ -240,7 +245,7 @@ namespace Rendering
 				renderItemWrap.srvDescriptorHeap = nullptr;
 			}
 
-			renderItemWrap.primitiveType = primitiveType;
+			//renderItemWrap.primitiveType = primitiveType;
 			renderItemWrap.worldCB = &worldCB;
 			renderItemWrap.materialCBP = &materialCB;
 
@@ -264,9 +269,19 @@ namespace Rendering
 			renderItemWrap.memory = this;
 		}
 
-		RenderItemWrap& GetRenderItemWrap()
+		RenderItemWrap* GetRenderItemWrap()
 		{
-			return renderItemWrap;
+			return &renderItemWrap;
+		}
+
+		bool HaveSphereBox()const
+		{
+			return haveSphereBox;
+		}
+
+		SphereBox GetSphereBox()const
+		{
+			return sphereBox;
 		}
 
 	private:
@@ -289,5 +304,8 @@ namespace Rendering
 
 		D3D12_PRIMITIVE_TOPOLOGY primitiveType;
 		RenderItemWrap renderItemWrap;
+
+		bool haveSphereBox = false;
+		SphereBox sphereBox;
 	};
 }
