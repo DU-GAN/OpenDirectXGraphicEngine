@@ -1,1 +1,2 @@
-texconv -r C:\Textures\*.png
+D:\DirectX\texconv>texconv：
+	-r D:\DirectX\texconv\Textures\*.jpg
